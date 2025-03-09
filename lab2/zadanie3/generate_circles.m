@@ -55,7 +55,5 @@ function [rand_counts, counts_mean, circles, a, b, r_max] = generate_circles(n_m
     xlabel("Pierwsze k okręgów [k]");
     ylabel("Średnia ilość prób");
     title("Średnia liczba losowań w czasie");
-
-    saveas(gcf, 'zadanie3.png');
 end
  

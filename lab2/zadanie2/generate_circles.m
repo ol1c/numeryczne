@@ -45,6 +45,5 @@ function [circle_areas, circles, a, b, r_max] = generate_circles(n_max)
     ylabel("Ile procent [%]");
     xlabel("Ilośc pierwszych wpisanych okręgów [k]");
     title("Procent prostokąta stanowiący sume pól pierwszych k okręgów");
-    saveas(gcf, 'zadanie2.png');
     hold off;
 end

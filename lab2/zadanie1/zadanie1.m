@@ -9,4 +9,4 @@ n_max = 200;
 % Wywołanie funkcji rysującej
 plot_circles(a, b, circles);
 % Zapisanie wykresu do pliku PNG (na potrzeby sprawozdania):
-% print -dpng zadanie1.png
+print -dpng zadanie1.png

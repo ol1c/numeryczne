@@ -1,0 +1,4 @@
+# Ignorowanie folderów
+.idea/
+.venv/
+__pycache__/

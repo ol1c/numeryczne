@@ -18,13 +18,13 @@ def simulation(buy_points, buy_rate, sell_points, sell_rate, wallet_start, stock
             if trade != 0:
                 stocks = trade + stocks
                 wallet = wallet - (trade * transaction[1])
-                profit.append((transaction[0], wallet + stocks * transaction[1]))
+            profit.append((transaction[0], wallet + stocks * transaction[1]))
         else:
             trade = stocks * sell_rate
             if trade != 0:
                 wallet = (trade * transaction[1]) + wallet
                 stocks = stocks - trade
-                profit.append((transaction[0], wallet + stocks * transaction[1]))
+            profit.append((transaction[0], wallet + stocks * transaction[1]))
         print(profit[-1])
 
     return profit, wallet, stocks
@@ -58,7 +58,10 @@ allin.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1]))
 fiftyfifty, wallet, stocks = simulation(buy, 0.5, sell, 0.5, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])
 fiftyfifty.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1])))
 
-small, wallet, stocks = simulation(buy, 0.0015, sell, 0.0015, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])
-small.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1])))
+third, wallet, stocks = simulation(buy, 0.8, sell, 0.2, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])
+third.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1])))
 
-plot_profit(allin, "Symulacja All-In", 14, "All-In", fiftyfifty, "buy/sell 50%", small, "Small")
+none, wallet, stocks = simulation(buy, 0, sell, 0, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])
+none.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1])))
+
+plot_profit(allin, "Symulacja kupna i sprzedaży", 14, "All-In", fiftyfifty, "buy/sell 50/50", third, "buy/sell 80/20", none, "Wartość 1000 akcji")

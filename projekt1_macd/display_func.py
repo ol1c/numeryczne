@@ -41,7 +41,7 @@ def plot_value(data, buy, sell, title, day_interval):
     plt.show()
 
 
-def plot_profit(profit1, title="", day_interval=30, p1_title='Profit', profit2=None, p2_title='Profit2', profit3=None, p3_title='Profit3'):
+def plot_profit(profit1, title="", day_interval=30, p1_title='Profit', profit2=None, p2_title='Profit2', profit3=None, p3_title='Profit3', profit4=None, p4_title='Profit4'):
     profit_date, profit_value = zip(*profit1)
 
     plot_settings(day_interval)
@@ -54,6 +54,10 @@ def plot_profit(profit1, title="", day_interval=30, p1_title='Profit', profit2=N
     if profit3 is not None:
         profit_date, profit_value = zip(*profit3)
         plt.plot(profit_date, profit_value, color='blue', label=p3_title)
+
+    if profit4 is not None:
+        profit_date, profit_value = zip(*profit4)
+        plt.plot(profit_date, profit_value, color='green', label=p4_title)
 
     plt.legend()
     plt.title(title)

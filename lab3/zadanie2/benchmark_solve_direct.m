@@ -18,9 +18,9 @@ for i=1:length(vN)
 
     tic
     % tu wyznacz x{i} metodą LU
-    [L{i}, U{i}, P{i}] = lu(A{i});
-    y{i} = L{i} \ (P{i} * b{i});
-    x{i} =  U{i} \ y{i};
+    [L, U, P] = lu(A{i});
+    y = L \ (P * b{i});
+    x{i} =  U \ y;
 
     vec_time_direct(i) = toc;
 end

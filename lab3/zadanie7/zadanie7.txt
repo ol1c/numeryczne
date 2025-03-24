@@ -1,0 +1,1 @@
+Osiągnięte rezultaty pokazują, że dla dużych macierzy metody iteracyjne są bardzo czasochłonne. Dodatkowo ciężko stwierdzić czy są one zbieżne. Metoda bezpośrednia zwraca dobry wynik. Natomiast metody Jacobi i Gauss-Seidel już gorzej. Metoda Gauss-Seidel zwraca bardzo dużą normę residuum, a metoda Jacobi zwraca NaN, czyli norma wychodzi poza rozmiar.

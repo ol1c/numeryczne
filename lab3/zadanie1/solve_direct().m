@@ -11,7 +11,7 @@ function [A,b,L,U,P,y,x,r_norm,t_factorization,t_substitution,t_direct] = ...
 % t_substitution - czas wyznaczenia rozwiązań równań z macierzami trójkątnymi L i U
 % t_direct - czas wyznaczenia rozwiąznia równania macierzowego metodą LU
 
-N = 10;
+N = 6000;
 [A,b] = generate_matrix(N);
 
 tic;

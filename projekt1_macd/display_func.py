@@ -45,7 +45,7 @@ def plot_profit(profit1, title="", day_interval=30, p1_title='Profit', profit2=N
     profit_date, profit_value = zip(*profit1)
 
     plot_settings(day_interval)
-    plt.plot(profit_date, profit_value, color='yellow', label=p1_title)
+    plt.plot(profit_date, profit_value, color='gold', label=p1_title)
 
     if profit2 is not None:
         profit_date, profit_value = zip(*profit2)

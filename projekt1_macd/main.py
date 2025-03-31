@@ -5,6 +5,21 @@ from macd_func import *
 from display_func import *
 
 
+def calculate_profit(data):
+    tmp = data[0][1]
+    plus = 0
+    minus = 0
+    for i in range(1, len(data)-1):
+        if tmp > data[i][1]:
+            minus += 1
+        elif tmp < data[i][1]:
+            plus += 1
+        tmp = data[i][1]
+
+    print("Zyski:", plus)
+    print("Straty:", minus)
+
+
 def simulation(buy_points, buy_rate, sell_points, sell_rate, wallet_start, stocks_start, profit):
     transactions = [(date, value, True) for date, value, signal in buy_points]
     transactions += [(date, value, False) for date, value, signal in sell_points]
@@ -25,7 +40,6 @@ def simulation(buy_points, buy_rate, sell_points, sell_rate, wallet_start, stock
                 wallet = (trade * transaction[1]) + wallet
                 stocks = stocks - trade
             profit.append((transaction[0], wallet + stocks * transaction[1]))
-        print(profit[-1])
 
     return profit, wallet, stocks
 
@@ -46,11 +60,11 @@ data['MACD'] = get_macd(data['Value'])
 data['SIGNAL'] = get_signal(data['MACD'])
 buy, sell = find_buy_and_sell_points(data)
 
-# plot_macd(data, buy, sell, "", 30)
-# plot_value(data, buy, sell, "", 30)
-#
-# example_buy_sell(data, buy, sell, 1)
-# example_buy_sell(data, buy, sell, 10)
+plot_macd(data, buy, sell, "Przecięcia MACD i SIGNAL", 30)
+plot_value(data, buy, sell, "Punkty kupna i sprzedaży a wartość akcji", 30)
+
+example_buy_sell(data, buy, sell, 1)
+example_buy_sell(data, buy, sell, 10)
 
 allin, wallet, stocks = simulation(buy, 1, sell, 1, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])
 allin.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1])))
@@ -64,4 +78,7 @@ third.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1]))
 none, wallet, stocks = simulation(buy, 0, sell, 0, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])
 none.append((data['Date'].iloc[-1], wallet + (stocks * data['Value'].iloc[-1])))
 
+plot_profit(allin, "Symulacja kupna i sprzedaży", 14)
 plot_profit(allin, "Symulacja kupna i sprzedaży", 14, "All-In", fiftyfifty, "buy/sell 50/50", third, "buy/sell 80/20", none, "Wartość 1000 akcji")
+
+calculate_profit(allin)

@@ -68,12 +68,12 @@ function [node_counts, exact_runge, exact_sine, V, interpolated_runge, interpola
 
         subplot(2,1,1);
         % TODO: plot interpolated_runge{i} 
-        plot(x_fine, interpolated_runge{i}, 'r--', 'LineWidth', 1, 'DisplayName',...
+        plot(x_fine, interpolated_runge{i}, '--', 'LineWidth', 1, 'DisplayName',...
             ['Interpolacja, ', num2str(N), ' węzłów']);
         hold on;
         subplot(2,1,2);
         % TODO: plot interpolated_sine{i}
-        plot(x_fine, interpolated_sine{i}, 'b--', 'LineWidth', 1, 'DisplayName',...
+        plot(x_fine, interpolated_sine{i}, '--', 'LineWidth', 1, 'DisplayName',...
             ['Interpolacja, ', num2str(N), ' węzłów']);
         hold on;
     end

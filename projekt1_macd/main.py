@@ -45,14 +45,15 @@ def simulation(buy_points, buy_rate, sell_points, sell_rate, wallet_start, stock
 
 
 def example_buy_sell(data, buy, sell, i):
-    example_buy = [buy[i]]
-    example_sell = [sell[i + 3]]
+    example_buy = [buy[i], buy[i+1], buy[i+2]]
+    example_sell = [sell[i+1], sell[i+2], sell[i+3]]
     start_date = example_buy[0][0]
-    end_date = example_sell[0][0]
+    end_date = example_sell[2][0]
     mask = (data['Date'] >= start_date) & (data['Date'] <= end_date)
     filtered_data = data[mask]
-    profit = example_sell[0][1] - example_buy[0][1]
+    profit = example_sell[1][1] - example_buy[1][1]
     plot_macd(filtered_data, example_buy, example_sell, "Profit: " + str(profit), 7)
+    plot_value(filtered_data, example_buy, example_sell, "Profit: " + str(profit), 7)
 
 
 data = get_data()
@@ -63,7 +64,7 @@ buy, sell = find_buy_and_sell_points(data)
 plot_macd(data, buy, sell, "Przecięcia MACD i SIGNAL", 30)
 plot_value(data, buy, sell, "Punkty kupna i sprzedaży a wartość akcji", 30)
 
-example_buy_sell(data, buy, sell, 1)
+example_buy_sell(data, buy, sell, 3)
 example_buy_sell(data, buy, sell, 10)
 
 allin, wallet, stocks = simulation(buy, 1, sell, 1, 0, 1000, [(data['Date'][0], 1000 * data['Value'][0])])

@@ -56,17 +56,44 @@ def GaussSeidlMethod(A, b):
     end = time.perf_counter_ns()
     return x, iterations, rNorm, end - start
 
+
+def lu(A):
+    N = A.shape[0]
+    L = np.zeros([N, N])
+    U = A.copy().astype(float)
+    P = np.eye(N)
+    for i in range(N):
+        maxRow = np.argmax(abs(U[i:, i])) + i
+        if i != maxRow:
+            U[[i, maxRow]] = U[[maxRow, i]]
+            P[[i, maxRow]] = P[[maxRow, i]]
+            L[[i,maxRow], :i] = L[[maxRow, i], :i]
+        L[i][i] = 1
+        for j in range(i+1, N):
+            L[j][i] = U[j][i] / U[i][i]
+            U[j] -= L[j][i] * U[i]
+    return L, U, P
+
+
+def LUMethod(A, b):
+    start = time.perf_counter_ns()
+    L, U, P = lu(A)
+    factorizationTime = time.perf_counter_ns() - start
+
+    start = time.perf_counter_ns()
+    y = np.linalg.inv(L) @ (P @ b)
+    x = np.linalg.inv(U) @ y
+    directTime = time.perf_counter_ns() - start
+    return x, np.linalg.norm(A @ x - b), factorizationTime + directTime
+
 # zad A
 N = 1208
 A = np.zeros([N, N])
-for i in range(N):
-    A[i][i] = 13
-    if i < N-1:
-        A[i][i+1] = -1
-        A[i+1][i] = -1
-        if i < N-2:
-            A[i][i+2] = -1
-            A[i+2][i] = -1
+np.fill_diagonal(A, 13)
+np.fill_diagonal(A[1:], -1)
+np.fill_diagonal(A[:,1:], -1)
+np.fill_diagonal(A[2:], -1)
+np.fill_diagonal(A[:,2:], -1)
 b = np.sin([n * 8 for n in range(N)])
 
 # zad B
@@ -83,8 +110,7 @@ print("Czas potrzebny do rozwiązania:", calculationTime, "ns")
 plotSemilogy([i for i in range(iterations+1)], rNorm, "Zmiana normy residuum dla metody Gaussa-Seidla")
 
 # zad C
-for i in range(N):
-    A[i][i] = 3
+np.fill_diagonal(A, 3)
 x, iterations, rNorm, calculationTime = JacobiMethod(A, b)
 print("\nMetoda Jacobiego")
 print("Iteracje potrzebne do rozwiązania:", iterations)
@@ -96,3 +122,9 @@ print("\nMetoda Gaussa-Seidla")
 print("Iteracje potrzebne do rozwiązania:", iterations)
 print("Czas potrzebny do rozwiązania:", calculationTime, "ns")
 plotSemilogy([i for i in range(iterations+1)], rNorm, "Zmiana normy residuum dla metody Gaussa-Seidla")
+
+# zad D
+x, rNorm, calculationTime = LUMethod(A, b)
+print("\nMetoda rozkładu LU")
+print("Czas potrzebny do rozwiązania:", calculationTime, "ns")
+print("Residuum norm:", rNorm)

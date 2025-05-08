@@ -1,13 +1,16 @@
 import matplotlib.pyplot as plt
 
 
-def plotSemilogy(x, y, title):
+def plotSemilogy(x1, y1, label1, x2, y2, label2):
     plt.figure(figsize=(12, 7))
     plt.subplots_adjust(bottom=0.15, top=0.95)
-    plt.semilogy(x, y)
-    plt.title(title)
+    plt.semilogy(x1, y1, label=label1)
+    plt.semilogy(x2, y2, label=label2)
     plt.xlabel("Iteracje")
     plt.ylabel("Norma residuum")
+    plt.title("Zmiana normy residuum")
+    plt.legend()
+    plt.grid()
     plt.show()
 
 def plotTime(x, time1, time2, time3):

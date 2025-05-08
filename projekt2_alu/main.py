@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from math_func import *
 from plots import *
 
@@ -12,31 +14,29 @@ np.fill_diagonal(A[:, 2:], -1)
 b = np.sin([n * 8 for n in range(N)])
 
 # zad B
-iterations, rNorm, calculationTime = JacobiMethod(A, b)
+iterations1, rNorm1, calculationTime1 = JacobiMethod(A, b)
 print("\nMetoda Jacobiego")
-print("Iteracje potrzebne do rozwiązania:", iterations)
-print("Czas potrzebny do rozwiązania:", calculationTime*1e-9, "s")
-plotSemilogy([i for i in range(iterations+1)], rNorm, "Zmiana normy residuum dla metody Jacobiego")
+print("Iteracje potrzebne do rozwiązania:", iterations1)
+print("Czas potrzebny do rozwiązania:", calculationTime1*1e-9, "s")
 
-iterations, rNorm, calculationTime = GaussSeidlMethod(A, b)
+iterations2, rNorm2, calculationTime2 = GaussSeidlMethod(A, b)
 print("\nMetoda Gaussa-Seidla")
-print("Iteracje potrzebne do rozwiązania:", iterations)
-print("Czas potrzebny do rozwiązania:", calculationTime*1e-9, "s")
-plotSemilogy([i for i in range(iterations+1)], rNorm, "Zmiana normy residuum dla metody Gaussa-Seidla")
+print("Iteracje potrzebne do rozwiązania:", iterations2)
+print("Czas potrzebny do rozwiązania:", calculationTime2*1e-9, "s")
+plotSemilogy([i for i in range(iterations1+1)], rNorm1, "metoda Jacobiego", [i for i in range(iterations2+1)], rNorm2, "metoda Gaussa-Seidla")
 
 # zad C
 np.fill_diagonal(A, 3)
-iterations, rNorm, calculationTime = JacobiMethod(A, b)
+iterations1, rNorm1, calculationTime1 = JacobiMethod(A, b)
 print("\nMetoda Jacobiego")
-print("Iteracje potrzebne do rozwiązania:", iterations)
-print("Czas potrzebny do rozwiązania:", calculationTime*1e-9, "s")
-plotSemilogy([i for i in range(iterations+1)], rNorm, "Zmiana normy residuum dla metody Jacobiego")
+print("Iteracje potrzebne do rozwiązania:", iterations1)
+print("Czas potrzebny do rozwiązania:", calculationTime1*1e-9, "s")
 
-iterations, rNorm, calculationTime = GaussSeidlMethod(A, b)
+iterations2, rNorm2, calculationTime2 = GaussSeidlMethod(A, b)
 print("\nMetoda Gaussa-Seidla")
-print("Iteracje potrzebne do rozwiązania:", iterations)
-print("Czas potrzebny do rozwiązania:", calculationTime*1e-9, "s")
-plotSemilogy([i for i in range(iterations+1)], rNorm, "Zmiana normy residuum dla metody Gaussa-Seidla")
+print("Iteracje potrzebne do rozwiązania:", iterations2)
+print("Czas potrzebny do rozwiązania:", calculationTime2*1e-9, "s")
+plotSemilogy([i for i in range(iterations1+1)], rNorm1, "metoda Jacobiego", [i for i in range(iterations2+1)], rNorm2, "metoda Gaussa-Seidla")
 
 # zad D
 rNorm, calculationTime = LUMethod(A, b)

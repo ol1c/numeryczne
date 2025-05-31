@@ -1,13 +1,44 @@
 from data import *
-from interpolation_funcs import transform_data
+from interpolation_funcs import *
 from plots import *
+import numpy as np
 
-data = get_data_deptak()
-# x, y = zip(*data)
-x = data["Dystans (m)"]
-y = data["Wysokość (m)"]
-plot_data(x, y, x, y, "", x, y, "", x, y, "")
 
-x_new, a = transform_data(x)
-plot_data(x_new, y, x_new, y, f"{a}", x_new, y, "", x_new, y, "")
+def fine_nodes(N):
+    d = 1 / (N - 1)
+    return [i * d for i in range(N)]
 
+
+def get_nodes(x, y, grid):
+    start_idx = 0
+    nodes_y = []
+    for xi in grid:
+        for idx in range(start_idx, len(x)):
+            if xi == x[idx]:
+                start_idx = idx+1
+                nodes_y.append(y[idx])
+                break
+            elif xi < x[idx]:
+                start_idx = idx
+                nodes_y.append((y[idx-1]+y[idx])/2)
+                break
+    return grid, nodes_y
+
+
+def analysis(data, func, N, nodes_pattern, title):
+    y = data["Wysokość (m)"]
+    x, t_param = transform_data(data["Dystans (m)"])
+    nodes_x, nodes_y = get_nodes(x, y, nodes_pattern(N))
+    new_x = fine_nodes(1000)
+    new_y = func(nodes_x, nodes_y, new_x)
+    plot_data(np.array(x) * t_param[1] + t_param[0], y,
+              np.array(new_x) * t_param[1] + t_param[0], new_y, "interpolacja",
+              np.array(nodes_x) * t_param[1] + t_param[0], nodes_y, title)
+
+
+deptak = get_data_deptak()
+analysis(deptak, lagrange, 16, fine_nodes, f"Interpolacja trasy 1 dla N={16} węzłów")
+
+
+kanion = get_data_kanion()
+analysis(kanion, lagrange, 16, fine_nodes, f"Interpolacja trasy 2 dla N={16} węzłów")

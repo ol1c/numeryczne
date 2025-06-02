@@ -15,10 +15,11 @@ def analysis(data, func, N, nodes_pattern, title):
               np.array(nodes_x) * t_param[1] + t_param[0], nodes_y, title)
 
 
-# deptak = get_data_deptak()
-# analysis(deptak, lagrange, 16, fine_nodes, f"Interpolacja trasy 1 dla N={16} węzłów")
+deptak = get_data_deptak()
+analysis(deptak, sklejany, 16, fine_nodes, f"Interpolacja trasy 1 dla N={16} węzłów")
+analysis(deptak, lagrange, 16, chebyshev_nodes, f"Interpolacja trasy 1 dla N={16} węzłów chebysheva")
 
 
 kanion = get_data_kanion()
 analysis(kanion, lagrange, 16, fine_nodes, f"Interpolacja trasy 2 dla N={16} węzłów")
-analysis(kanion, lagrange, 16, chebyshev_nodes, f"Interpolacja trasy 2 dla N={16} węzłów")
+analysis(kanion, lagrange, 16, chebyshev_nodes, f"Interpolacja trasy 2 dla N={16} węzłów chebysheva")

@@ -16,10 +16,14 @@ def analysis(data, func, N, nodes_pattern, title):
 
 
 deptak = get_data_deptak()
-analysis(deptak, sklejany, 16, fine_nodes, f"Interpolacja trasy 1 dla N={16} węzłów")
-analysis(deptak, lagrange, 16, chebyshev_nodes, f"Interpolacja trasy 1 dla N={16} węzłów chebysheva")
+analysis(deptak, lagrange, 16, fine_nodes, f"Interpolacja wielomianowa trasy 1 dla N={16} węzłów")
+analysis(deptak, sklejany, 16, fine_nodes, f"Interpolacja sklejana trasy 1 dla N={16} węzłów")
+analysis(deptak, lagrange, 16, chebyshev_nodes, f"Interpolacja wielomianowa trasy 1 dla N={16} węzłów chebysheva")
+analysis(deptak, sklejany, 16, chebyshev_nodes, f"Interpolacja sklejana trasy 1 dla N={16} węzłów chebysheva")
 
 
 kanion = get_data_kanion()
-analysis(kanion, lagrange, 16, fine_nodes, f"Interpolacja trasy 2 dla N={16} węzłów")
-analysis(kanion, lagrange, 16, chebyshev_nodes, f"Interpolacja trasy 2 dla N={16} węzłów chebysheva")
+analysis(kanion, lagrange, 16, fine_nodes, f"Interpolacja wielomianowa trasy 2 dla N={16} węzłów")
+analysis(kanion, sklejany, 16, fine_nodes, f"Interpolacja sklejana trasy 2 dla N={16} węzłów")
+analysis(kanion, lagrange, 16, chebyshev_nodes, f"Interpolacja wielomianowa trasy 2 dla N={16} węzłów chebysheva")
+analysis(kanion, sklejany, 16, chebyshev_nodes, f"Interpolacja sklejana trasy 2 dla N={16} węzłów chebysheva")

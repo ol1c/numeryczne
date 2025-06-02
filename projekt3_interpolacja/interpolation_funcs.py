@@ -62,7 +62,7 @@ def sklejany(nodes_x, nodes_y, new_x):
         return [0 for _ in range(len(new_x))]
     new_y = []
     new_size = len(new_x)
-    for i in range(2, size, 3):
+    for i in range(2, size):
         h1 = nodes_x[i-1] - nodes_x[i-2]
         h2 = nodes_x[i] - nodes_x[i-1]
         A = np.array([[1, 0, 0, 0, 0, 0, 0, 0],
@@ -95,7 +95,7 @@ def sklejany(nodes_x, nodes_y, new_x):
     b = np.array([nodes_y[i - 2], nodes_y[i - 1], nodes_y[i - 1], nodes_y[i], 0, 0, 0, 0])
     x = np.linalg.solve(A, b)
     for idx in range(start_idx, new_size):
-        if new_x[idx] > nodes_x[i - 1]:
+        if new_x[idx] > nodes_x[i]:
             break
         new_y.append(x[4] + x[5] * (new_x[idx] - nodes_x[i - 1]) + x[6] * (new_x[idx] - nodes_x[i - 1]) ** 2 + x[7] * (
                     new_x[idx] - nodes_x[i - 1]) ** 3)

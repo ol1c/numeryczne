@@ -5,9 +5,9 @@ def transform_data(x):
     start = x[0]
     end = x[len(x) - 1]
     a = end - start
-    copy = x
-    for i in range(len(copy)):
-        copy[i] = (copy[i] - start) / a
+    copy = []
+    for i in range(len(x)):
+        copy.append((x[i] - start) / a)
     return copy, [start, a]
 
 
@@ -51,7 +51,7 @@ def lagrange(nodes_x, nodes_y, new_x):
                     phi = phi * (x - nodes_x[j]) / (nodes_x[i] - nodes_x[j])
             y = y + phi * nodes_y[i]
         new_y.append(y)
-        print(x)
+        # print(x)
     return new_y
 
 
